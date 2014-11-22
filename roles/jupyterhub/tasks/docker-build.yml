@@ -2,8 +2,17 @@
 - name: pull jupyterhub service images
   command: docker pull {{ item }}
   with_items:
+  - jupyter/jupyterhub
   - jhamrick/systemuser
-  - jhamrick/jupyterhub
+  sudo: yes
+  tags:
+    - docker-rebuild
+
+- name: build jhamrick/lovelace-jupyterhub image
+  docker_image:
+    path: /home/jhamrick/project/tools/lovelace-jupyterhub
+    name: jhamrick/lovelace-jupyterhub
+    state: build
   sudo: yes
   tags:
     - docker-rebuild
@@ -28,12 +37,12 @@
   tags:
     - docker-rebuild
 
-- name: build jhamrick/compmodels-jupyterhub:deploy image
+- name: build jhamrick/lovelace-jupyterhub:deploy image
   docker_image:
     path: /srv/jupyterhub
-    name: jhamrick/compmodels-jupyterhub
-    tag: deploy
+    name: jhamrick/lovelace-jupyterhub
     state: build
+    tag: deploy
   sudo: yes
   tags:
     - docker-rebuild

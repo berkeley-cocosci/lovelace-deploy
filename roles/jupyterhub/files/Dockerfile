@@ -1,1 +1,1 @@
-from jhamrick/jupyterhub
+from jhamrick/lovelace-jupyterhub

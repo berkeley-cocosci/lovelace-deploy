@@ -1,12 +1,14 @@
 ---
-- name: create instructor accounts
+- name: create admin accounts
   user:
     name: "{{ item }}"
-    group: instructors
-  with_items: instructors
+    group: jupyterhub_admins
+  with_items: admins
+  sudo: yes
 
-- name: create student accounts
+- name: create user accounts
   user:
     name: "{{ item }}"
-    group: students
-  with_items: students
+    group: jupyterhub_users
+  with_items: users
+  sudo: yes

@@ -1,20 +1,8 @@
 ---
 # Override these values by copying to vars.local.yml.
 
-# GitHub users to grab public keys from
-github_usernames:
-- jhamrick
-- rgbkrk
-- minrk
-
-# Instructor user accounts
-instructors:
+admins:
 - jhamrick
 
-# Student user accounts
-students:
-- rgbkrk
-- minrk
+users:
 
-# Path to assignments
-assignment_path: /path/to/your/assignments
