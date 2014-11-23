@@ -27,6 +27,10 @@
     name: "file://{{ root }}/ipython#egg=ipython[all]"
   sudo: yes
 
+- name: install terminado
+  pip: name=terminado virtualenv={{ venv }}
+  sudo: yes
+
 - name: clone the juptyerhub repository
   git:
     repo: https://github.com/jupyter/jupyterhub.git
