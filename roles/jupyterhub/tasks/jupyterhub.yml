@@ -1,0 +1,56 @@
+---
+- name: create virtualenv
+  command: virtualenv {{ venv }} -p /usr/bin/python3 creates={{ venv }}
+  sudo: yes
+
+- name: install bower
+  npm: name=bower global=yes
+  sudo: yes
+
+- name: install less
+  npm: name=less global=yes version=1.7.5
+  sudo: yes
+
+- name: install jupyter/configurable-http-proxy
+  npm: name=jupyter/configurable-http-proxy global=yes
+  sudo: yes
+
+- name: clone the ipython repository
+  git:
+    repo: https://github.com/ipython/ipython.git
+    dest: "{{ root }}/ipython"
+  sudo: yes
+
+- name: install ipython plus all dependencies
+  pip:
+    virtualenv: "{{ venv }}"
+    name: "file://{{ root }}/ipython#egg=ipython[all]"
+  sudo: yes
+
+- name: clone the juptyerhub repository
+  git:
+    repo: https://github.com/jupyter/jupyterhub.git
+    dest: "{{ root }}/jupyterhub"
+  sudo: yes
+
+- name: install jupyterhub requirements
+  pip:
+    virtualenv: "{{ venv }}"
+    chdir: "{{ root }}/jupyterhub"
+    requirements: dev-requirements.txt
+  sudo: yes
+
+- name: install jupyterhub
+  pip:
+    virtualenv: "{{ venv }}"
+    chdir: "{{ root }}/jupyterhub"
+    name: '.'
+  sudo: yes
+
+- name: create the userlist
+  script: make_userlist.sh {{ root }}/userlist creates={{ root }}/userlist
+  sudo: yes
+
+- name: install jupyterhub config
+  template: src=jupyterhub_config.py dest={{ root }}/jupyterhub_config.py
+  sudo: yes

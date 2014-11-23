@@ -1,1 +1,0 @@
-from jhamrick/lovelace-jupyterhub

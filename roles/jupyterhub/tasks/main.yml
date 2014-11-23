@@ -1,26 +1,40 @@
 ---
-- include: docker.yml
-- include: docker-build.yml
-- include: accounts.yml
+# - include: accounts.yml
 
-- name: stop running docker containers
-  shell: docker stop $(docker ps -a -q) || true
-  tags:
-    - docker-rebuild
+# - name: install packages with apt-get
+#   apt: name={{ packages | join(",") }} update_cache=yes
+#   sudo: yes
 
-- name: remove docker containers
-  shell: docker rm $(docker ps -a -q) || true
-  tags:
-    - docker-rebuild
-
-- name: launch jupyterhub
-  docker:
-    state: running
-    image: jhamrick/lovelace-jupyterhub:deploy
-    detach: true
-    net: host
-    name: jupyterhub
-    volumes: /var/run/docker.sock:/docker.sock
+- name: send interrupt signal to jupyterhub
+  shell: "if [ -f {{ root }}/pid ]; then kill -2 $(cat {{ root }}/pid); fi"
   sudo: yes
   tags:
-    - docker-rebuild
+    - stop
+    - start
+
+- name: wait for jupyterhub to exit
+  wait_for: "path={{ root }}/pid state=absent"
+  tags:
+    - stop
+    - start
+
+- name: ensure that daemon says jupyterhub is not running
+  shell: "[ ! $(daemon -n jupyterhub --running) ]"
+  sudo: yes
+  tags:
+    - stop
+    - start
+
+- include: jupyterhub.yml
+
+- name: start jupyterhub
+  command: daemon -n jupyterhub -o {{ root }}/jupyterhub.log -- {{ venv }}/bin/jupyterhub -f {{ root }}/jupyterhub_config.py
+  sudo: yes
+  tags:
+    - start
+
+- name: ensure jupyterhub is running
+  shell: daemon -n jupyterhub --running
+  sudo: yes
+  tags:
+    - start

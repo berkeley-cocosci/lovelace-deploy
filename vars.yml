@@ -6,3 +6,7 @@ admins:
 
 users:
 
+root: /srv/jupyterhub
+venv: /srv/jupyterhub/venv
+
+packages:
