@@ -13,6 +13,7 @@ base_packages:
     - python3-pip
     - python-sphinx
     - python3-sphinx
+    - virtualenvwrapper
 
 scientific_packages:
     - ipython
