@@ -1,5 +1,5 @@
 ---
-- hosts: jupyterhub
+- hosts: servers
   vars_files:
   - ['secrets.yml', 'secrets.vault.yml']
   - ['vars.local.yml', 'vars.yml']

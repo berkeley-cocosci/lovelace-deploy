@@ -1,5 +1,2 @@
-[jupyterhub]
-jupyterhub_server ansible_ssh_user=root ansible_ssh_host=<public IP>
-
-[proxy]
-proxy_server ansible_ssh_user=root ansible_ssh_host=<public IP> jupyterhub_host=<snet IP of jupyterhub>
+[servers]
+lovelace ansible_ssh_user=<user> ansible_ssh_host=<public IP>
