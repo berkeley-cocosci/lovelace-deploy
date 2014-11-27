@@ -1,11 +1,6 @@
 ---
 # Override these values by copying to vars.local.yml.
 
-admins:
-- jhamrick
-
-users:
-
 root: /srv/jupyterhub
 venv: /srv/jupyterhub/venv
 

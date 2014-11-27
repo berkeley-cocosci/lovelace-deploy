@@ -1,0 +1,10 @@
+---
+- name: add apt respository for julia releases
+  apt_repository: repo='ppa:staticfloat/juliareleases'
+
+- name: add apt repository for julia dependencies
+  apt_repository: repo='ppa:staticfloat/juliareleases'
+
+- name: install julia
+  apt: name=julia update_cache=yes state=installed
+  sudo: yes

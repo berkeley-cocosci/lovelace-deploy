@@ -6,4 +6,5 @@
   roles:
   - python
   - R
+  - julia
   - jupyterhub
