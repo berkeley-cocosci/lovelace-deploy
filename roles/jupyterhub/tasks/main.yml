@@ -1,9 +1,5 @@
 ---
-# - include: accounts.yml
-
-# - name: install packages with apt-get
-#   apt: name={{ packages | join(",") }} update_cache=yes
-#   sudo: yes
+- include: dependencies.yml
 
 - name: send interrupt signal to jupyterhub
   shell: "if [ -f {{ root }}/pid ]; then kill -2 $(cat {{ root }}/pid); fi"

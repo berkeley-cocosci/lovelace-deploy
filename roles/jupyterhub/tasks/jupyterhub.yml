@@ -3,18 +3,6 @@
   command: virtualenv {{ venv }} -p /usr/bin/python3 creates={{ venv }}
   sudo: yes
 
-- name: install bower
-  npm: name=bower global=yes
-  sudo: yes
-
-- name: install less
-  npm: name=less global=yes version=1.7.5
-  sudo: yes
-
-- name: install jupyter/configurable-http-proxy
-  npm: name=jupyter/configurable-http-proxy global=yes
-  sudo: yes
-
 - name: clone the ipython repository
   git:
     repo: https://github.com/ipython/ipython.git
