@@ -1,0 +1,29 @@
+---
+base_packages:
+    - python
+    - python3
+    - cython
+    - cython3
+    - python-virtualenv
+    - python-pkg-resources
+    - python3-pkg-resources
+    - python-setuptools
+    - python3-setuptools
+    - python-pip
+    - python3-pip
+    - python-sphinx
+    - python3-sphinx
+
+scientific_packages:
+    - ipython
+    - ipython3
+    - python-matplotlib
+    - python-numpy
+    - python-pandas
+    - python-pygame
+    - python-scipy
+    - python-sympy
+    - python3-matplotlib
+    - python3-numpy
+    - python3-pandas
+    - python3-scipy

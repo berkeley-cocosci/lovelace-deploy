@@ -1,0 +1,9 @@
+---
+- name: install basic python packages
+  apt: name={{ base_packages | join(",") }} update_cache=yes state=installed
+  sudo: yes
+    
+
+- name: install scientific python packages
+  apt: name={{ scientific_packages | join(",") }} update_cache=yes state=installed
+  sudo: yes
