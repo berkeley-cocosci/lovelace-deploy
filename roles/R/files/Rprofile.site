@@ -1,0 +1,11 @@
+## Rprofile.site
+##
+## Copyright (C) 2008 Dirk Eddelbuettel and GPL'ed
+##
+## see help(Startup) for documentation on ~/.Rprofile and Rprofile.site
+
+local({
+  r <- getOption("repos")
+  r["CRAN"] <- "http://cran.cnr.Berkeley.edu"
+  options(repos=r)
+})

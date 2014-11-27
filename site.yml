@@ -5,3 +5,4 @@
   - ['vars.local.yml', 'vars.yml']
   roles:
   - jupyterhub
+  - R
