@@ -13,10 +13,11 @@
   pip:
     virtualenv: "{{ venv }}"
     name: "file://{{ root }}/ipython#egg=ipython[all]"
+    state: latest
   sudo: yes
 
 - name: install terminado
-  pip: name=terminado virtualenv={{ venv }}
+  pip: name=terminado virtualenv={{ venv }} state=latest
   sudo: yes
 
 - name: clone the juptyerhub repository
@@ -30,6 +31,7 @@
     virtualenv: "{{ venv }}"
     chdir: "{{ root }}/jupyterhub"
     requirements: dev-requirements.txt
+    state: latest
   sudo: yes
 
 - name: install jupyterhub
@@ -37,6 +39,7 @@
     virtualenv: "{{ venv }}"
     chdir: "{{ root }}/jupyterhub"
     name: '.'
+    state: latest
   sudo: yes
 
 - name: create the userlist
