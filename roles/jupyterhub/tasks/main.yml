@@ -24,7 +24,7 @@
 - include: jupyterhub.yml
 
 - name: start jupyterhub
-  command: daemon -n jupyterhub -o {{ root }}/jupyterhub.log -- {{ venv }}/bin/jupyterhub -f {{ root }}/jupyterhub_config.py
+  command: daemon -n jupyterhub -o {{ root }}/jupyterhub.log -- /usr/local/bin/jupyterhub -f {{ root }}/jupyterhub_config.py
   sudo: yes
   tags:
     - start

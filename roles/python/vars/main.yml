@@ -1,30 +1,27 @@
 ---
 base_packages:
-    - python
-    - python3
-    - cython
-    - cython3
-    - python-virtualenv
     - python-pkg-resources
     - python3-pkg-resources
+    - python-pygame
     - python-setuptools
     - python3-setuptools
-    - python-pip
-    - python3-pip
-    - python-sphinx
-    - python3-sphinx
-    - virtualenvwrapper
 
-scientific_packages:
-    - ipython
-    - ipython3
-    - python-matplotlib
-    - python-numpy
-    - python-pandas
-    - python-pygame
-    - python-scipy
-    - python-sympy
-    - python3-matplotlib
-    - python3-numpy
-    - python3-pandas
-    - python3-scipy
+pip_packages:
+    - git+git://github.com/ipython/ipython.git#egg=ipython[all]
+    - git+git://github.com/jupyter/nbgrader.git#egg=nbgrader
+    - terminado
+    - matplotlib
+    - numpy
+    - pandas
+    - scipy
+    - sympy
+    - cython
+    - virtualenv
+    - sphinx
+    - virtualenvwrapper
+    - invoke
+    - termcolor
+
+pip3_packages:
+    - git+git://github.com/jupyter/jupyterhub.git#egg=jupyterhub
+  

@@ -11,7 +11,7 @@ c.JupyterHubApp.pid_file = "{{ root }}/pid"
 c.JupyterHubApp.admin_users = admin = set()
 
 # Set the full path to the singleuser server
-c.LocalProcessSpawner.cmd = ["{{ venv }}/bin/jupyterhub-singleuser"]
+c.LocalProcessSpawner.cmd = ["/usr/local/bin/jupyterhub-singleuser"]
 
 # Configure the authenticator
 c.Authenticator.whitelist = whitelist = set()
@@ -26,4 +26,3 @@ with open("{{ root }}/userlist") as f:
         whitelist.add(name)
         if len(parts) > 1 and parts[1] == 'admin':
             admin.add(name)
-

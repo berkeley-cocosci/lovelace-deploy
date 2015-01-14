@@ -18,3 +18,7 @@
 - name: install jupyter/configurable-http-proxy
   npm: name=jupyter/configurable-http-proxy global=yes
   sudo: yes
+
+- name: create the jupyterhub directory
+  file: path={{ root }} state=directory
+  sudo: yes

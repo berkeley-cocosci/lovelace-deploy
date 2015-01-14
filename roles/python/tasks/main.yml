@@ -1,9 +1,42 @@
 ---
-- name: install basic python packages
-  apt: name={{ base_packages | join(",") }} update_cache=yes state=installed
+- name: install python
+  apt:
+    name: python,python3
+    update_cache: yes
+    state: latest
   sudo: yes
-    
 
-- name: install scientific python packages
-  apt: name={{ scientific_packages | join(",") }} update_cache=yes state=installed
+- name: install pip3
+  command: easy_install3 --upgrade pip
+  sudo: yes
+
+- name: install pip
+  command: easy_install --upgrade pip
+  sudo: yes
+
+- name: install basic python packages
+  apt: name={{ base_packages | join(",") }} state=latest
+  sudo: yes
+
+- name: install python packages with pip
+  pip: name='{{ item }}' state=latest executable=/usr/local/bin/pip
+  sudo: yes
+  with_items: pip_packages
+
+- name: install ipython2 kernel
+  shell: rm -rf /usr/local/share/jupyter/kernels/python2 && ipython2 kernelspec install-self
+  sudo: yes
+
+- name: install python packages with pip3
+  pip: name='{{ item }}' state=latest executable=/usr/local/bin/pip3
+  sudo: yes
+  with_items: pip_packages
+
+- name: install python packages with pip3
+  pip: name='{{ item }}' state=latest executable=/usr/local/bin/pip3
+  sudo: yes
+  with_items: pip3_packages
+
+- name: install ipython3 kernel
+  shell: rm -rf /usr/local/share/jupyter/kernels/python3 && ipython3 kernelspec install-self
   sudo: yes
