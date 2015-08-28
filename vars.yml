@@ -2,6 +2,5 @@
 # Override these values by copying to vars.local.yml.
 
 root: /srv/jupyterhub
-venv: /srv/jupyterhub/venv
 
 packages:
