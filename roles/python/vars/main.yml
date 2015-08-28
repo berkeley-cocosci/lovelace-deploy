@@ -7,21 +7,26 @@ base_packages:
     - python3-setuptools
 
 pip_packages:
-    - git+git://github.com/ipython/ipython.git#egg=ipython[all]
-    - git+git://github.com/jupyter/nbgrader.git#egg=nbgrader
-    - terminado
+    - cython
+    - invoke
+    - ipyparallel
+    - jupyter
     - matplotlib
+    - nbgrader
     - numpy
     - pandas
+    - Pillow
+    - rpy2
+    - scikit-learn
     - scipy
-    - sympy
-    - cython
-    - virtualenv
+    - seaborn
     - sphinx
-    - virtualenvwrapper
-    - invoke
+    - statsmodels
+    - sympy
     - termcolor
+    - terminado
+    - virtualenv
+    - virtualenvwrapper
 
 pip3_packages:
-    - git+git://github.com/jupyter/jupyterhub.git#egg=jupyterhub
-  
+    - jupyterhub
