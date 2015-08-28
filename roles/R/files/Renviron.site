@@ -4,4 +4,4 @@
 ##
 ## see help(Startup) for documentation on ~/.Renviron and Renviron.site
 
-R_LIBS=~/.local/lib/R
+R_LIBS_USER=~/.local/lib/R
