@@ -24,7 +24,7 @@
   with_items: pip_packages
 
 - name: install ipython2 kernel
-  shell: rm -rf /usr/local/share/jupyter/kernels/python2 && python2 -m jupyter kernelspec install-self
+  shell: rm -rf /usr/local/share/jupyter/kernels/python2 && python2 -m IPython kernelspec install-self
   sudo: yes
 
 - name: install python packages with pip3
@@ -38,5 +38,5 @@
   with_items: pip3_packages
 
 - name: install ipython3 kernel
-  shell: rm -rf /usr/local/share/jupyter/kernels/python3 && python3 -m jupyter kernelspec install-self
+  shell: rm -rf /usr/local/share/jupyter/kernels/python3 && python3 -m IPython kernelspec install-self
   sudo: yes
