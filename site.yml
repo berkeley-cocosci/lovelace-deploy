@@ -4,7 +4,7 @@
   - ['secrets.yml', 'secrets.vault.yml']
   - ['vars.local.yml', 'vars.yml']
   roles:
-  - python
   - R
+  - python
   - julia
   - jupyterhub
