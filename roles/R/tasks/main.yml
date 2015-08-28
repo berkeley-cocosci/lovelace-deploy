@@ -1,6 +1,14 @@
 ---
+- name: add R apt repository
+  lineinfile: dest=/etc/apt/sources.list line="deb http://cran.cnr.berkeley.edu/bin/linux/ubuntu trusty/"
+  sudo: yes
+
+- name: add R apt key
+  shell: apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+  sudo: yes
+
 - name: install R
-  apt: update_cache=yes cache_valid_time=600 name=r-base,r-base-dev state=installed
+  apt: update_cache=yes cache_valid_time=600 name=r-base,r-base-dev state=latest
   sudo: yes
 
 - name: Rprofile configuration
@@ -12,7 +20,7 @@
   sudo: yes
 
 - name: install packages for R kernel installation
-  apt: update_cache=yes cache_valid_time=600 name=libzmq3-dev,libcurl4-openssl-dev state=installed
+  apt: update_cache=yes cache_valid_time=600 name=libzmq3-dev,libcurl4-openssl-dev state=latest
   sudo: yes
 
 # from http://adamj.eu/tech/2014/07/19/installing-and-removing-r-packages-with-ansible/
