@@ -1,9 +1,7 @@
 ---
 - hosts: servers
-  vars_files:
-  - ['secrets.yml', 'secrets.vault.yml']
-  - ['vars.local.yml', 'vars.yml']
   roles:
+  - core
   - R
   - python
   - julia

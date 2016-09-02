@@ -3,8 +3,10 @@ c = get_config()
 
 # Base configuration
 c.JupyterHub.ip = "0.0.0.0"
+c.JupyterHub.port = 80
 c.JupyterHub.log_level = 10
 c.JupyterHub.pid_file = "{{ root }}/pid"
+c.JupyterHub.confirm_no_ssl = True
 c.Authenticator.admin_users = admin = set()
 
 # Set the full path to the singleuser server

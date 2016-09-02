@@ -1,0 +1,26 @@
+---
+apt_packages:
+    - bzr
+    - cvs
+    - emacs-goodies-el
+    - emacs24
+    - ffmpeg
+    - gfortran
+    - gimp
+    - git
+    - git-annex
+    - htop
+    - libagg-dev
+    - libatlas-base-dev
+    - libatlas-dev
+    - libblas-dev
+    - libfreetype6-dev
+    - liblapack-dev
+    - mencoder
+    - mercurial
+    - msttcorefonts
+    - ncurses-dev
+    - scons
+    - texlive-full
+    - tk
+    - tk-dev

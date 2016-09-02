@@ -7,4 +7,3 @@
 
 - name: install julia
   apt: name=julia update_cache=yes state=latest
-  sudo: yes

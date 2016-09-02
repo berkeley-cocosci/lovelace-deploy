@@ -8,10 +8,4 @@ if [ ! -e ${ROOT}//inventory ]; then
   exit 1
 fi
 
-if [ -e ${ROOT}/secrets.yml ]; then
-  VAULT_ARG=
-else
-  VAULT_ARG=--ask-vault-pass
-fi
-
-exec ansible-playbook ${ROOT}/site.yml -i ${ROOT}/inventory ${VAULT_ARG} $@
+exec ansible-playbook ${ROOT}/site.yml -i ${ROOT}/inventory $@

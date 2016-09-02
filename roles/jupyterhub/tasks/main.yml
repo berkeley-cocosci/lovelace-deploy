@@ -3,7 +3,6 @@
 
 - name: send interrupt signal to jupyterhub
   shell: "if [ -f {{ root }}/pid ]; then kill -2 $(cat {{ root }}/pid); fi"
-  sudo: yes
   tags:
     - stop
     - start
@@ -16,7 +15,6 @@
 
 - name: ensure that daemon says jupyterhub is not running
   shell: "[ ! $(daemon -n jupyterhub --running) ]"
-  sudo: yes
   tags:
     - stop
     - start
@@ -25,12 +23,10 @@
 
 - name: start jupyterhub
   command: daemon -n jupyterhub -o {{ root }}/jupyterhub.log -- /usr/local/bin/jupyterhub -f {{ root }}/jupyterhub_config.py
-  sudo: yes
   tags:
     - start
 
 - name: ensure jupyterhub is running
   shell: daemon -n jupyterhub --running
-  sudo: yes
   tags:
     - start

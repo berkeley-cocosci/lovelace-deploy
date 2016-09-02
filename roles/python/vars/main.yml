@@ -8,16 +8,25 @@ base_packages:
 
 pip_packages:
     - cython
+    - enum34
+    - gensim
+    - h5py
     - invoke
     - ipyparallel
     - jupyter
+    - keras
     - matplotlib
     - nbgrader
+    - networkx
+    - nltk
     - numpy
     - pandas
     - Pillow
+    - pymc
+    - pyyaml
     - rpy2
     - scikit-learn
+    - scikit-image
     - scipy
     - seaborn
     - sphinx
@@ -25,6 +34,7 @@ pip_packages:
     - sympy
     - termcolor
     - terminado
+    - theano
     - virtualenv
     - virtualenvwrapper
 
