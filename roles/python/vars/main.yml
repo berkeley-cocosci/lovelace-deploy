@@ -5,6 +5,7 @@ base_packages:
     - python-pygame
     - python-setuptools
     - python3-setuptools
+    - python-tk
 
 pip_packages:
     - cython
