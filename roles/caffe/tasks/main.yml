@@ -92,9 +92,28 @@
   make:
     target: pycaffe
     chdir: "{{ caffe_root }}"
+  register: make_pycaffe
 
 - name: run tests (this may take awhile!)
   when: make_all.changed or make_test.changed
   make:
     target: runtest
     chdir: "{{ caffe_root }}"
+  environment:
+    LD_LIBRARY_PATH: /usr/local/cuda/lib64
+
+- name: run python tests
+  when: make_all.changed or make_test.changed or make_pycaffe.changed
+  make:
+    target: pytest
+    chdir: "{{ caffe_root }}"
+  environment:
+    LD_LIBRARY_PATH: /usr/local/cuda/lib64
+
+- name: update environment variables in global bashrc
+  blockinfile:
+    dest: /etc/bash.bashrc
+    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR CAFFE"
+    content: |
+      export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+      export PYTHONPATH=/usr/local/caffe/python:$PYTHONPATH

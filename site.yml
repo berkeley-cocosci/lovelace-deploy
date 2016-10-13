@@ -1,11 +1,11 @@
 ---
-# - hosts: servers
-#   roles:
-#   - core
-#   - R
-#   - python
-#   - julia
-#   - jupyterhub
+- hosts: servers
+  roles:
+  - core
+  - R
+  - python
+  - julia
+  - jupyterhub
 
 - hosts: gpu_servers
   roles:
