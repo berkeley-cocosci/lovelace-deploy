@@ -6,3 +6,7 @@
   - python
   - julia
   - jupyterhub
+
+- hosts: gpu_servers
+  roles:
+  - caffe

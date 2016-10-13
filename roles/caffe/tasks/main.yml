@@ -1,0 +1,71 @@
+---
+- name: install apt packages
+  apt:
+    name: '{{ item }}'
+    state: latest
+  with_items:
+    - libprotobuf-dev
+    - libleveldb-dev
+    - libsnappy-dev
+    - libopencv-dev
+    - libhdf5-serial-dev
+    - protobuf-compiler
+    - libatlas-base-dev
+    - python-dev
+    - libgflags-dev
+    - libgoogle-glog-dev
+    - liblmdb-dev
+
+- name: install libboost-all-dev
+  apt:
+    name: libboost-all-dev
+    install_recommends: no
+    state: latest
+
+- name: copy over the cuda deb file
+  copy: src=cuda-repo-ubuntu1604_8.0.44-1_amd64.deb dest=/root/cuda.deb
+
+- name: install the cuda deb file
+  shell: dpkg -i /root/cuda.deb
+
+- name: install cuda (this may take awhile!)
+  apt:
+    name: cuda
+    update_cache: yes
+    state: latest
+
+- name: clone the caffe repo
+  git:
+    repo: https://github.com/BVLC/caffe
+    version: rc3
+    update: yes
+    dest: "{{ caffe_root }}"
+
+- name: install Makefile.config
+  copy: src=Makefile.config dest={{ caffe_root }}
+
+- name: install python dependencies
+  shell: pip install -r {{ caffe_root }}/python/requirements.txt
+
+- name: compile caffe (this may take awhile!)
+  make:
+    target: all
+    chdir: "{{ caffe_root }}"
+  register: make_all
+
+- name: compile caffe tests (this may take awhile!)
+  make:
+    target: test
+    chdir: "{{ caffe_root }}"
+  register: make_test
+
+- name: compile caffe python bindings
+  make:
+    target: pycaffe
+    chdir: "{{ caffe_root }}"
+
+- name: run tests (this may take awhile!)
+  when: make_all.changed or make_test.changed
+  make:
+    target: runtest
+    chdir: "{{ caffe_root }}"
