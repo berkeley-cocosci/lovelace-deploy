@@ -116,4 +116,4 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK FOR CAFFE"
     content: |
       export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
-      export PYTHONPATH=/usr/local/caffe/python:$PYTHONPATH
+      export PYTHONPATH={{ caffe_root }}/python:$PYTHONPATH
