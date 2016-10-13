@@ -59,3 +59,6 @@ target/
 vars.local.yml
 inventory
 secrets.yml
+site.retry
+roles/caffe/files/cudnn-7.0-linux-x64-v4.0-prod.tgz
+
