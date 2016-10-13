@@ -23,16 +23,45 @@
     state: latest
 
 - name: copy over the cuda deb file
-  copy: src=cuda-repo-ubuntu1604_8.0.44-1_amd64.deb dest=/root/cuda.deb
+  copy: src=cuda-repo-ubuntu1604_8.0.44-1_amd64.deb dest=/root/cuda.deb force=no
+  register: cuda_deb
 
 - name: install the cuda deb file
+  when: cuda_deb.changed
   shell: dpkg -i /root/cuda.deb
 
 - name: install cuda (this may take awhile!)
+  when: cuda_deb.changed
   apt:
     name: cuda
     update_cache: yes
     state: latest
+
+- name: copy over the libcudnn tarball
+  copy: src=cudnn-7.0-linux-x64-v4.0-prod.tgz dest=/root/cudnn.tar.gz force=no
+  register: libcudnn
+
+- name: extract cudnn
+  when: libcudnn.changed
+  shell: tar -xf cudnn.tar.gz
+  args:
+    chdir: /root
+
+- name: get list of cudnn include files
+  shell: ls /root/cuda/include/*
+  register: cudnn_include
+
+- name: copy cudnn include files
+  copy: src={{ item }} remote_src=true dest=/usr/local/cuda/include/
+  with_items: '{{ cudnn_include.stdout_lines }}'
+
+- name: get list of cudnn library files
+  shell: ls /root/cuda/lib64/*
+  register: cudnn_lib64
+
+- name: copy the cudnn library files
+  copy: src={{ item }} remote_src=true dest=/usr/local/cuda/lib64/
+  with_items: '{{ cudnn_lib64.stdout_lines }}'
 
 - name: clone the caffe repo
   git:
@@ -45,7 +74,7 @@
   copy: src=Makefile.config dest={{ caffe_root }}
 
 - name: install python dependencies
-  shell: pip install -r {{ caffe_root }}/python/requirements.txt
+  pip: requirements={{ caffe_root }}/python/requirements.txt
 
 - name: compile caffe (this may take awhile!)
   make:
