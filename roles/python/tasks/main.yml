@@ -16,18 +16,14 @@
 
 - name: install python packages with pip
   pip: name='{{ item }}' state=latest executable=/usr/local/bin/pip
-  with_items: pip_packages
+  with_items: '{{ pip_packages }}'
 
 - name: install ipython2 kernel
   shell: rm -rf /usr/local/share/jupyter/kernels/python2 && python2 -m IPython kernelspec install-self
 
 - name: install python packages with pip3
   pip: name='{{ item }}' state=latest executable=/usr/local/bin/pip3
-  with_items: pip_packages
-
-- name: install python packages with pip3
-  pip: name='{{ item }}' state=latest executable=/usr/local/bin/pip3
-  with_items: pip3_packages
+  with_items: '{{ pip_packages }}'
 
 - name: install ipython3 kernel
   shell: rm -rf /usr/local/share/jupyter/kernels/python3 && python3 -m IPython kernelspec install-self

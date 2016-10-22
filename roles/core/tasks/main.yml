@@ -7,4 +7,7 @@
 
 - name: install system packages (this might take a while)
   apt: name={{ item }} state=latest
-  with_items: apt_packages
+  with_items: '{{ apt_packages }}'
+
+- name: autoremove old packages
+  apt: autoremove=yes

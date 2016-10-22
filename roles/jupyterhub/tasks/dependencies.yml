@@ -1,9 +1,11 @@
 ---
+- name: add nodejs apt repo
+  shell: curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+
 - name: install packages with apt-get
-  apt: name={{ item }} update_cache=yes state=installed
+  apt: name={{ item }} update_cache=yes state=latest
   with_items:
-    - npm
-    - nodejs-legacy
+    - nodejs
     - daemon
 
 - name: install bower
@@ -14,6 +16,9 @@
 
 - name: install jupyter/configurable-http-proxy
   npm: name=jupyter/configurable-http-proxy global=yes
+
+- name: install jupyterhub
+  pip: name=jupyterhub state=latest executable=/usr/local/bin/pip3
 
 - name: create the jupyterhub directory
   file: path={{ root }} state=directory

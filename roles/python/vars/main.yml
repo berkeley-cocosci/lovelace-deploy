@@ -39,6 +39,3 @@ pip_packages:
     - theano
     - virtualenv
     - virtualenvwrapper
-
-pip3_packages:
-    - jupyterhub
