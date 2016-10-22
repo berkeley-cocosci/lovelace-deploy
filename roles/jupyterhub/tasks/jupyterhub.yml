@@ -1,8 +1,6 @@
 ---
 - name: create the userlist
   script: make_userlist.sh {{ root }}/userlist
-  sudo: yes
 
 - name: install jupyterhub config
   template: src=jupyterhub_config.py dest={{ root }}/jupyterhub_config.py
-  sudo: yes
