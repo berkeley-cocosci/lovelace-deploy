@@ -10,3 +10,4 @@
 - hosts: gpu_servers
   roles:
   - caffe
+  - tensorflow_gpu

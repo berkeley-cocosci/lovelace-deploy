@@ -1,0 +1,14 @@
+---
+- name: install tensorflow for python 3
+  shell: pip3 install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0rc1-cp35-cp35m-linux_x86_64.whl
+
+- name: install tensorflow for python 2
+  shell: pip install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0rc1-cp27-none-linux_x86_64.whl
+
+- name: update environment variables in global bashrc
+  blockinfile:
+    dest: /etc/bash.bashrc
+    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR TENSORFLOW"
+    content: |
+      export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
+      export CUDA_HOME=/usr/local/cuda
