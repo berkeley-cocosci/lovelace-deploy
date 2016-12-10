@@ -50,3 +50,8 @@
     content: |
       export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
       alias gtop="watch -n 1 nvidia-smi -q -d UTILIZATION"
+
+- name: run ldconfig
+  shell: ldconfig
+  environment:
+    LD_LIBRARY_PATH: /usr/local/cuda/lib64
