@@ -1,0 +1,52 @@
+---
+- name: create {{ cuda_root }} directory
+  file: path={{ cuda_root }} state=directory
+
+- name: copy over the cuda deb file
+  copy: src=cuda-repo-ubuntu1604_8.0.44-1_amd64.deb dest={{ cuda_root }}/cuda.deb force=no
+  register: cuda_deb
+
+- name: install the cuda deb file
+  when: cuda_deb.changed
+  shell: dpkg -i {{ cuda_root }}/cuda.deb
+
+- name: install cuda (this may take awhile!)
+  when: cuda_deb.changed
+  apt:
+    name: cuda
+    update_cache: yes
+    state: latest
+
+- name: copy over the libcudnn tarball
+  copy: src=cudnn-8.0-linux-x64-v5.1.tgz dest={{ cuda_root }}/cudnn.tar.gz force=no
+  register: libcudnn
+
+- name: extract cudnn
+  when: libcudnn.changed
+  shell: tar -xf cudnn.tar.gz
+  args:
+    chdir: /srv
+
+- name: get list of cudnn include files
+  shell: ls {{ cuda_root }}/cuda/include/*
+  register: cudnn_include
+
+- name: copy cudnn include files
+  file: state=link src={{ item }} dest=/usr/local/cuda/include/{{ item | basename }} force=yes
+  with_items: '{{ cudnn_include.stdout_lines }}'
+
+- name: get list of cudnn library files
+  shell: ls {{ cuda_root }}/cuda/lib64/*
+  register: cudnn_lib64
+
+- name: copy the cudnn library files
+  file: state=link src={{ item }} dest=/usr/local/cuda/lib64/{{ item | basename }} force=yes
+  with_items: '{{ cudnn_lib64.stdout_lines }}'
+
+- name: update environment variables in global bashrc
+  blockinfile:
+    dest: /etc/bash.bashrc
+    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR CUDA"
+    content: |
+      export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+      alias gtop="watch -n 1 nvidia-smi -q -d UTILIZATION"
