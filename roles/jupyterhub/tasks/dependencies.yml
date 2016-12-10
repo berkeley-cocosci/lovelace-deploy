@@ -21,4 +21,4 @@
   pip: name=jupyterhub state=latest executable=/usr/local/bin/pip3
 
 - name: create the jupyterhub directory
-  file: path={{ root }} state=directory
+  file: path={{ jupyterhub_root }} state=directory

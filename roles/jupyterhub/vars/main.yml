@@ -1,2 +1,2 @@
 ---
-root: /srv/jupyterhub
+jupyterhub_root: /srv/jupyterhub

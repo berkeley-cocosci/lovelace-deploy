@@ -1,6 +1,6 @@
 ---
 - name: create the userlist
-  script: make_userlist.sh {{ root }}/userlist
+  script: make_userlist.sh {{ jupyterhub_root }}/userlist
 
 - name: install jupyterhub config
-  template: src=jupyterhub_config.py dest={{ root }}/jupyterhub_config.py
+  template: src=jupyterhub_config.py dest={{ jupyterhub_root }}/jupyterhub_config.py
