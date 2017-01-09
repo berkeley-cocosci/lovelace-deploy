@@ -55,3 +55,24 @@
   shell: ldconfig
   environment:
     LD_LIBRARY_PATH: /usr/local/cuda/lib64
+
+# see https://github.com/Theano/Theano/issues/4430 for the motivation for the
+# following steps:
+
+- name: install gcc-4.9 and g++-4.9
+  apt: name={{ item }} update_cache=yes state=latest
+  with_items:
+    - gcc-4.9
+    - g++-4.9
+
+- name: update alternatives to use gcc-4.9
+  shell: update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20 && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 10
+
+- name: update alternatives to use g++-4.9
+  shell: update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 20 && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 10
+
+- name: update alternatives for cc
+  shell: update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30 && update-alternatives --set cc /usr/bin/gcc
+
+- name: update alternatives for c++
+  shell: update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30 && update-alternatives --set c++ /usr/bin/g++
