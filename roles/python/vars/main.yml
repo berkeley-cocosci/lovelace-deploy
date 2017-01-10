@@ -18,6 +18,7 @@ pip_packages:
     - jupyter
     - keras
     - matplotlib
+    - mechanize
     - nbgrader
     - networkx
     - nltk
@@ -25,10 +26,12 @@ pip_packages:
     - pandas
     - Pillow
     - pymc
+    - pyPdf
+    - PyPDF2
     - pyyaml
     - rpy2
-    - scikit-learn
     - scikit-image
+    - scikit-learn
     - scipy
     - seaborn
     - sphinx
@@ -36,6 +39,10 @@ pip_packages:
     - sympy
     - termcolor
     - terminado
+    - textract
     - theano
     - virtualenv
     - virtualenvwrapper
+
+pip2_packages:
+    - pdfminer
