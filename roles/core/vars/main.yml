@@ -16,6 +16,7 @@ apt_packages:
     - libblas-dev
     - libfreetype6-dev
     - liblapack-dev
+    - llvm
     - mencoder
     - mercurial
     - msttcorefonts

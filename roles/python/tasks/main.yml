@@ -6,31 +6,31 @@
     state: latest
 
 - name: install pip3
-  command: pip3 install --upgrade pip
+  command: /usr/local/bin/pip3 install --upgrade pip
 
-- name: install pip
-  command: pip install --upgrade pip
+- name: install pip2
+  command: /usr/local/bin/pip2 install --upgrade pip
 
 - name: install basic python packages
   apt: name={{ base_packages | join(",") }} state=latest
-
-- name: install python packages with pip
-  pip: name='{{ item }}' state=latest executable=/usr/local/bin/pip
-  with_items: '{{ pip_packages }}'
-
-- name: install python packages with pip
-  pip: name='{{ item }}' state=latest executable=/usr/local/bin/pip
-  with_items: '{{ pip2_packages }}'
-
-- name: install ipython2 kernel
-  shell: rm -rf /usr/local/share/jupyter/kernels/python2 && python2 -m IPython kernelspec install-self
 
 - name: install python packages with pip3
   pip: name='{{ item }}' state=latest executable=/usr/local/bin/pip3
   with_items: '{{ pip_packages }}'
 
+- name: install python packages with pip2
+  pip: name='{{ item }}' state=latest executable=/usr/local/bin/pip2
+  with_items: '{{ pip_packages }}'
+
+- name: install python packages with pip2
+  pip: name='{{ item }}' state=latest executable=/usr/local/bin/pip2
+  with_items: '{{ pip2_packages }}'
+
 - name: install ipython3 kernel
   shell: rm -rf /usr/local/share/jupyter/kernels/python3 && python3 -m IPython kernelspec install-self
+
+- name: install ipython2 kernel
+  shell: rm -rf /usr/local/share/jupyter/kernels/python2 && python2 -m IPython kernelspec install-self
 
 - name: install tensorflow for python 3
   shell: pip3 install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0rc0-cp35-cp35m-linux_x86_64.whl
