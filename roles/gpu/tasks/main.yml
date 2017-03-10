@@ -18,14 +18,14 @@
     state: latest
 
 - name: copy over the libcudnn tarball
-  copy: src=cudnn-8.0-linux-x64-v5.1.tgz dest={{ cuda_root }}/cudnn.tar.gz force=no
+  copy: src=cudnn-8.0-linux-x64-v5.0-ga.tgz dest={{ cuda_root }}/cudnn.tar.gz force=no
   register: libcudnn
 
 - name: extract cudnn
   when: libcudnn.changed
   shell: tar -xf cudnn.tar.gz
   args:
-    chdir: /srv
+    chdir: /srv/cuda
 
 - name: get list of cudnn include files
   shell: ls {{ cuda_root }}/cuda/include/*
@@ -49,6 +49,8 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK FOR CUDA"
     content: |
       export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+      export CUDA_ROOT=/usr/local/cuda
+      export PATH=/usr/local/cuda/bin:$PATH
       alias gtop="watch -n 1 nvidia-smi -q -d UTILIZATION"
 
 - name: run ldconfig
