@@ -6,8 +6,10 @@
   - python
   - julia
   - jupyterhub
+  - mitsuba
 
 - hosts: gpu_servers
   roles:
+  - gpu
   - caffe
   - tensorflow_gpu

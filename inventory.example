@@ -1,2 +1,6 @@
 [servers]
 lovelace ansible_ssh_user=<user> ansible_ssh_host=<public IP>
+theano ansible_ssh_user=<user> ansible_ssh_host=<public IP>
+
+[gpu_servers]
+theano
