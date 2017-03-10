@@ -25,3 +25,5 @@ apt_packages:
     - texlive-full
     - tk
     - tk-dev
+    - postgresql
+    - libpq-dev
