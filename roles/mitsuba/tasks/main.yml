@@ -1,0 +1,54 @@
+---
+- name: install apt packages
+  apt: name={{ item }} state=latest
+  with_items:
+    - build-essential
+    - scons
+    - mercurial
+    - qt4-dev-tools
+    - libpng12-dev
+    - libjpeg-dev
+    - libilmbase-dev
+    - libxerces-c-dev
+    - libboost-all-dev
+    - libopenexr-dev
+    - libglewmx-dev
+    - libxxf86vm-dev
+    - libpcrecpp0v5
+    - libeigen3-dev
+    - libfftw3-dev
+
+- name: get ilmbase source
+  unarchive:
+    src: http://download.savannah.nongnu.org/releases/openexr/ilmbase-2.2.0.tar.gz
+    dest: /srv
+    remote_src: yes
+
+- name: configure and install ilmbase
+  shell: CC=gcc-5 CXX=g++-5 ./configure && make && make install
+  args:
+    chdir: /srv/ilmbase-2.2.0
+
+- name: get openexr source
+  unarchive:
+    src: http://download.savannah.nongnu.org/releases/openexr/openexr-2.2.0.tar.gz
+    dest: /srv
+    remote_src: yes
+
+- name: configure and install openexr
+  shell: CC=gcc-5 CXX=g++-5 ./configure && make && make install
+  args:
+    chdir: /srv/openexr-2.2.0
+
+- name: clone mitsuba repository
+  git:
+    repo: https://github.com/mitsuba-renderer/mitsuba.git
+    dest: /srv/mitsuba
+
+- name: copy config file
+  shell: cp /srv/mitsuba/build/config-linux-gcc.py /srv/mitsuba/config.py
+
+- name: compile mitsuba
+  shell: scons -j 8
+  args:
+    chdir: /srv/mitsuba
