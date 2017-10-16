@@ -7,6 +7,10 @@
     - stop
     - start
 
+# if this step fails, it is because JupyterHub wasn't running to begin with
+# (which can happen if the server rebooted without JupyterHub exiting cleanly).
+# To fix the problem, you can manually delete the pid file (probably at
+# /srv/jupyterhub/pid ) and then rerun the Ansible script.
 - name: wait for jupyterhub to exit
   wait_for: "path={{ jupyterhub_root }}/pid state=absent"
   tags:
